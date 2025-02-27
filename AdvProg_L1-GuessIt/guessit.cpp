@@ -41,6 +41,7 @@ void printAns (int guess, int secret) {
 
 void gamePlay() {
     char playAgain;
+    int best = 0;
     
     do {
         int secretNum = createRandomNum();
@@ -56,8 +57,13 @@ void gamePlay() {
 			}
             printAns(guess, secretNum);
         } while (guess != secretNum);
-		
+
 		cout << "Your final score is: " << score << endl;
+		if (score > best) {
+			best = score;
+			cout << "New high score!" << endl;
+		}
+		cout << "High score: " << best << endl;
         cout << endl << endl << "Wanna play again? (y/n): ";
         cin >> playAgain;
 
