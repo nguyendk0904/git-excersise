@@ -1,52 +1,70 @@
 #include <iostream>
-#include <string>
+#include <cstdlib>
 #include <cmath>
-
-using std::string;
-using std::cout;
-using std::endl;
-using std::stod;
-
-
-double mySin(double x);
-double myCos(double x);
-double mySqrt(double x);
-
-/***
-    Args:
-        x (double): a number
-    Returns:
-        double: cosine of x
-***/
-double myCos(double x) 
+#include <string>
+using namespace std;
+double arithmetic(double num1, double num2, char op);
+double CalFunc (string& func, double num);
+int main(int argc, char* argv[])
 {
-    return 0.0;
+	double num1, num2;
+	char op;
+	
+	if (argc == 3) {
+		string func = argv[1];
+		double num = atof(argv[2]);
+		cout << CalFunc(func, num) << endl;
+		return 0;	
+	}
+	
+	if (argc == 4) {
+		num1 = atof(argv[1]);
+		op = argv[2][0];
+		num2 = atof(argv[3]);
+	
+		cout << arithmetic(num1, num2, op) << endl;
+		return 0;
+	}
 }
 
-/***
-    Args:
-        x (double): a number
-    Returns:
-        double: sine of x
-***/
-double mySin(double x)
+double arithmetic(double num1, double num2, char op)
 {
-    return 0.0;
+	
+	switch (op) {
+		case '+':
+		return num1 + num2;
+		
+		case '-':
+		return num1 - num2;
+		
+		case '*':
+		case 'x':
+		return num1 * num2;
+		
+		case '/':
+		if (num2 == 0.0) {
+			cout << "Invalid divisor" << endl;
+			exit(1);
+		}
+		return num1 / num2;
+		
+		default:
+		cout << "Invalid operator" << endl;
+		exit(1);
+	}
 }
 
+double CalFunc (string& func, double num) {
+	if (func == "sqrt") { 
+		if (num < 0) {
+			cout << "Invalid input";
+		}
+		return sqrt(num);
+	}
 
-/***
-    Args:
-        x (double): a number
-    Returns:
-        double: square root of x
-***/
-double mySqrt(double x) {
-    if (x < 0) {
-        cout << "Invalid argument" << endl;
-        exit(1);
-    }
-
-    
-    return 0;
+	if (func == "cos")	return cos(num);
+	if (func == "sin") return sin(num);
+	
+	cout << "Invalid function";
+	exit(1);
 }
