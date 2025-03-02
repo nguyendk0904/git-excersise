@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+void sort_ascending (int a[], int size) {
+	for (int i = 0; i < size - 1; i++) {
+		for (int j = 0; j < size - 1 - i; j++) {
+			if (a[j] > a[j+1]) {
+				swap(a[j], a[j+1]);
+			}
+		}
+	}
+}
+
+int SmallestGreater (int a[], int size, int key) {
+	sort_ascending(a, size);
+	int bot = 0, top = size - 1, mid;
+	int res = -1;
+
+	while (bot <= top) {
+		mid = (top + bot) / 2;
+		if (key < a[mid]) {
+			res = a[mid];
+			top = mid - 1;
+		} 
+		else bot = mid + 1;
+	}
+	return res;
+}
+
+int main() {
+	int a[100];
+	int size;
+	int key;
+	
+	cout << "Nhap so phan tu cua mang: ";
+	cin >> size;
+	
+	cout << "Nhap " << size << " phan tu cua mang: ";
+	for (int i = 0; i < size; i++) {
+		cin >> a[i];
+	}
+	
+	cout << "Nhap key: ";
+	cin >> key;
+
+	int result = SmallestGreater(a, size, key);
+	if (result != -1) {
+		cout << "Phan tu nho nhat lon hon key la: " << result << endl;
+	}
+	
+	else cout << "Khong co phan tu nao lon hon " << key << endl;
+	
+	return 0;
+}
